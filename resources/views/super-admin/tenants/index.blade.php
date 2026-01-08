@@ -8,7 +8,7 @@
 
 
     <!-- Enhanced Stats Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-100">
             <div class="p-4">
                 <div class="flex items-center justify-between">
@@ -30,29 +30,6 @@
                 </div>
             </div>
             <div class="bg-gradient-to-r from-green-500 to-green-600 h-1"></div>
-        </div>
-
-        <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-100">
-            <div class="p-4">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-xs font-semibold text-gray-600 uppercase tracking-wide">Trial Companies</p>
-                        <p class="text-2xl font-bold text-gray-900 mt-1">{{ $tenants->where('subscription_status', 'trial')->count() }}</p>
-                        <p class="text-xs text-yellow-600 mt-1 flex items-center">
-                            <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            Conversion pending
-                        </p>
-                    </div>
-                    <div class="p-2 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-lg">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-            <div class="bg-gradient-to-r from-yellow-500 to-yellow-600 h-1"></div>
         </div>
 
         <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-100">
@@ -126,16 +103,8 @@
                         <select id="status-filter" class="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white min-w-0">
                             <option value="">All Status</option>
                             <option value="active">Active</option>
-                            <option value="trial">Trial</option>
                             <option value="suspended">Suspended</option>
                             <option value="cancelled">Cancelled</option>
-                        </select>
-
-                        <select id="plan-filter" class="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white min-w-0">
-                            <option value="">All Plans</option>
-                            @foreach($availablePlans as $plan)
-                                <option value="{{ $plan->slug }}">{{ $plan->name }}</option>
-                            @endforeach
                         </select>
                     </div>
 
@@ -153,12 +122,12 @@
                         </svg>
                         <span class="hidden sm:inline">Export</span>
                     </button>
-                    <a href="{{ route('super-admin.tenants.invite') }}" class="inline-flex items-center px-3 py-2 bg-amber-600 border border-transparent rounded-lg text-sm font-medium text-white hover:bg-amber-700 transition-colors">
+                    {{-- <a href="{{ route('super-admin.tenants.invite') }}" class="inline-flex items-center px-3 py-2 bg-amber-600 border border-transparent rounded-lg text-sm font-medium text-white hover:bg-amber-700 transition-colors">
                         <svg class="w-4 h-4 sm:mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                         </svg>
                         <span class="hidden sm:inline">Send Invite</span>
-                    </a>
+                    </a> --}}
                     <a href="{{ route('super-admin.tenants.create') }}" class="inline-flex items-center px-3 py-2 bg-indigo-600 border border-transparent rounded-lg text-sm font-medium text-white hover:bg-indigo-700 transition-colors">
                         <svg class="w-4 h-4 sm:mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
@@ -235,14 +204,8 @@
                         <th scope="col" class="px-2 sm:px-3 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider w-20">
                             Status
                         </th>
-                        <th scope="col" class="hidden sm:table-cell px-2 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider w-20">
-                            Plan
-                        </th>
                         <th scope="col" class="hidden md:table-cell px-2 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider w-16">
                             Users
-                        </th>
-                        <th scope="col" class="hidden lg:table-cell px-2 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider w-20">
-                            Revenue
                         </th>
                         <th scope="col" class="hidden lg:table-cell px-2 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider w-20">
                             Created
@@ -280,12 +243,6 @@
                                     @else
                                         <div class="text-xs text-gray-400 hidden sm:block truncate">{{ $tenant->slug }}.app</div>
                                     @endif
-                                    <!-- Mobile-only: Show plan info -->
-                                    <div class="sm:hidden mt-0.5">
-                                        <span class="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">
-                                            {{ $tenant->plan ? ucfirst($tenant->plan->name) : 'No Plan' }}
-                                        </span>
-                                    </div>
                                 </div>
                             </div>
                         </td>
@@ -311,34 +268,7 @@
                             </div>
                             @if($tenant->trial_ends_at && $tenant->subscription_status === 'trial')
                                 <div class="text-xs text-gray-500 mt-0.5 hidden sm:block truncate">
-                                    Ends {{ $tenant->trial_ends_at->diffForHumans() }}
-                                </div>
-                            @endif
-                        </td>
-                        <td class="hidden sm:table-cell px-2 py-3">
-                            @if($tenant->plan)
-                                @php
-                                    $planConfig = [
-                                        'starter' => ['class' => 'bg-blue-100 text-blue-800'],
-                                        'professional' => ['class' => 'bg-purple-100 text-purple-800'],
-                                        'enterprise' => ['class' => 'bg-indigo-100 text-indigo-800'],
-                                    ];
-                                    $config = $planConfig[$tenant->plan->slug] ?? ['class' => 'bg-gray-100 text-gray-800'];
-                                @endphp
-                                <div class="min-w-0">
-                                    <span class="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium {{ $config['class'] }} truncate">
-                                        {{ $tenant->plan->name }}
-                                    </span>
-                                    <div class="text-xs text-gray-500 mt-0.5 truncate">
-                                        {{ $tenant->billing_cycle === 'yearly' ? '₦' . number_format($tenant->plan->yearly_price / 100) . '/yr' : '₦' . number_format($tenant->plan->monthly_price / 100) . '/mo' }}
-                                    </div>
-                                </div>
-                            @else
-                                <div class="min-w-0">
-                                    <span class="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800 truncate">
-                                        No Plan
-                                    </span>
-                                    <div class="text-xs text-gray-500 mt-0.5 truncate">₦0/mo</div>
+                                    Created {{ $tenant->created_at->diffForHumans() }}
                                 </div>
                             @endif
                         </td>
@@ -349,15 +279,6 @@
                                 </svg>
                                 <span class="text-xs font-medium text-gray-900">{{ $tenant->users->count() }}</span>
                             </div>
-                        </td>
-                        <td class="hidden lg:table-cell px-2 py-3">
-                            @if($tenant->plan)
-                                <div class="text-xs font-semibold text-gray-900 truncate">₦{{ number_format($tenant->getPlanPrice() / 100) }}</div>
-                                <div class="text-xs text-gray-500 truncate">{{ $tenant->billing_cycle === 'yearly' ? 'per year' : 'per month' }}</div>
-                            @else
-                                <div class="text-xs font-semibold text-gray-900 truncate">₦0</div>
-                                <div class="text-xs text-gray-500 truncate">No plan</div>
-                            @endif
                         </td>
                         <td class="hidden lg:table-cell px-2 py-3">
                             <div class="text-xs text-gray-900 truncate">{{ $tenant->created_at->format('M j, Y') }}</div>
@@ -416,7 +337,7 @@
                                 @endif
 
                                 <!-- More Actions Dropdown (Hidden on Mobile) -->
-                                <div class="relative hidden sm:block" x-data="{ open: false }">
+                                {{-- <div class="relative hidden sm:block" x-data="{ open: false }">
                                     <button @click="open = !open"
                                             class="inline-flex items-center justify-center w-8 h-8 rounded-lg text-gray-500 hover:text-gray-700 hover:bg-gray-100 transition-all duration-200 hover:scale-105 relative z-10"
                                             title="More Actions">
@@ -461,7 +382,7 @@
                                             Delete Company
                                         </a>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </td>
                     </tr>

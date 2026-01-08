@@ -77,7 +77,7 @@
                         @if($tenant->subscription_status === 'trial' && $tenant->trial_ends_at)
                             <p class="text-sm">Trial ends {{ $tenant->trial_ends_at->diffForHumans() }} ({{ $tenant->trial_ends_at->format('M j, Y') }})</p>
                         @elseif($tenant->subscription_status === 'active' && $tenant->subscription_ends_at)
-                            <p class="text-sm">Subscription ends {{ $tenant->subscription_ends_at->diffForHumans() }} ({{ $tenant->subscription_ends_at->format('M j, Y') }})</p>
+                            <p class="text-sm">Active since {{ $tenant->created_at->format('M j, Y') }}</p>
                         @endif
                     </div>
                 </div>
@@ -476,166 +476,11 @@
                 </div>
             </div>
 
-            <!-- Subscription History Timeline -->
-            <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-                <div class="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-emerald-50 to-teal-50">
-                    <div class="flex items-center justify-between">
-                        <h2 class="text-lg font-semibold text-gray-900">Subscription History</h2>
-                        <button onclick="toggleSubscriptionDetails()"
-                                class="text-sm text-blue-600 hover:text-blue-800 font-medium">
-                            View All
-                        </button>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <div class="space-y-6">
-                        <!-- Current Subscription -->
-                        <div class="relative flex items-start">
-                            <div class="flex-shrink-0">
-                                <div class="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center ring-4 ring-white">
-                                    <svg class="h-5 w-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="ml-4 min-w-0 flex-1">
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="text-sm font-medium text-gray-900">
-                                            @if($tenant->plan)
-                                                {{ $tenant->plan->name }} Plan Active
-                                            @else
-                                                No Active Plan
-                                            @endif
-                                        </p>
-                                        <p class="text-xs text-gray-500">Current subscription</p>
-                                    </div>
-                                    <div class="text-right">
-                                        <p class="text-sm font-semibold text-green-600">
-                                            @if($tenant->plan)
-                                                ₦{{ number_format($tenant->getPlanPrice() / 100) }}/{{ $tenant->billing_cycle === 'yearly' ? 'year' : 'month' }}
-                                            @else
-                                                Free
-                                            @endif
-                                        </p>
-                                        <p class="text-xs text-gray-500">{{ now()->format('M j, Y') }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <!-- Trial Started -->
-                        @if($tenant->trial_ends_at)
-                        <div class="relative flex items-start">
-                            <div class="absolute top-5 left-5 w-px bg-gray-200 h-full"></div>
-                            <div class="flex-shrink-0">
-                                <div class="h-10 w-10 rounded-full bg-yellow-100 flex items-center justify-center ring-4 ring-white">
-                                    <svg class="h-5 w-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="ml-4 min-w-0 flex-1">
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="text-sm font-medium text-gray-900">Trial Period Started</p>
-                                        <p class="text-xs text-gray-500">{{ $tenant->trial_ends_at->diffInDays(now()) }} days trial period</p>
-                                    </div>
-                                    <div class="text-right">
-                                        <p class="text-sm text-gray-600">Free</p>
-                                        <p class="text-xs text-gray-500">{{ $tenant->created_at->format('M j, Y') }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @endif
-
-                        <!-- Account Created -->
-                        <div class="relative flex items-start">
-                            @if($tenant->trial_ends_at)
-                                <div class="absolute top-5 left-5 w-px bg-gray-200 h-full"></div>
-                            @endif
-                            <div class="flex-shrink-0">
-                                <div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center ring-4 ring-white">
-                                    <svg class="h-5 w-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="ml-4 min-w-0 flex-1">
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="text-sm font-medium text-gray-900">Account Created</p>
-                                        <p class="text-xs text-gray-500">Company registered in system</p>
-                                    </div>
-                                    <div class="text-right">
-                                        <p class="text-sm text-gray-600">Setup</p>
-                                        <p class="text-xs text-gray-500">{{ $tenant->created_at->format('M j, Y') }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Billing Summary -->
-                    <div class="mt-6 pt-6 border-t border-gray-200">
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="text-center p-3 bg-gray-50 rounded-lg">
-                                <p class="text-lg font-bold text-gray-900">
-                                    @if($tenant->plan)
-                                        ₦{{ number_format(($tenant->getPlanPrice() / 100) * ($tenant->billing_cycle === 'yearly' ? 1 : 12)) }}
-                                    @else
-                                        ₦0
-                                    @endif
-                                </p>
-                                <p class="text-xs text-gray-600">Annual Value</p>
-                            </div>
-                            <div class="text-center p-3 bg-gray-50 rounded-lg">
-                                <p class="text-lg font-bold text-gray-900">{{ $tenant->created_at->diffInDays(now()) }}</p>
-                                <p class="text-xs text-gray-600">Days Active</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <!-- Right Column - Sidebar -->
         <div class="space-y-8">
-
-            <!-- Subscription Details -->
-            <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-                <div class="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-purple-50 to-pink-50">
-                    <h2 class="text-lg font-semibold text-gray-900">Subscription</h2>
-                </div>
-                <div class="p-6 space-y-4">
-                    @if($tenant->plan)
-                        <div>
-                            <label class="block text-sm font-medium text-gray-500 mb-1">Current Plan</label>
-                            <p class="text-lg font-semibold text-gray-900">{{ $tenant->plan->name }}</p>
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-medium text-gray-500 mb-1">Billing Cycle</label>
-                            <p class="text-sm text-gray-900">{{ ucfirst($tenant->billing_cycle) }}</p>
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-medium text-gray-500 mb-1">Price</label>
-                            <p class="text-lg font-semibold text-gray-900">
-                                ₦{{ number_format($tenant->getPlanPrice() / 100) }}
-                                <span class="text-sm font-normal text-gray-600">
-                                    /{{ $tenant->billing_cycle === 'yearly' ? 'year' : 'month' }}
-                                </span>
-                            </p>
-                        </div>
-                    @else
-                        <div class="text-center py-4">
-                            <p class="text-sm text-gray-500">No plan assigned</p>
-                        </div>
-                    @endif
-                </div>
-            </div>
 
             <!-- Security & Monitoring -->
             <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
@@ -999,16 +844,6 @@ function createUserModal() {
     `;
     document.body.insertAdjacentHTML('beforeend', modalHTML);
     showModal('addUserModal');
-}
-
-// Subscription Functions
-function toggleSubscriptionDetails() {
-    const details = document.getElementById('subscriptionDetails');
-    if (details) {
-        details.classList.toggle('hidden');
-    } else {
-        showToast('Loading subscription details...', 'info');
-    }
 }
 
 // Security Functions

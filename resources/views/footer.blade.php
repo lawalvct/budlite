@@ -170,36 +170,5 @@
             }
         });
     </script>
-
-    <!-- Scroll to Top Button -->
-    <button id="scrollToTop" class="fixed bottom-8 right-8 bg-brand-gold text-gray-900 w-12 h-12 rounded-full shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300 hidden z-50 flex items-center justify-center">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
-        </svg>
-    </button>
-
-    <script>
-        // Scroll to Top functionality
-        const scrollToTopBtn = document.getElementById('scrollToTop');
-
-        // Show button when user scrolls down 300px
-        window.addEventListener('scroll', function() {
-            if (window.pageYOffset > 300) {
-                scrollToTopBtn.classList.remove('hidden');
-                scrollToTopBtn.classList.add('flex');
-            } else {
-                scrollToTopBtn.classList.add('hidden');
-                scrollToTopBtn.classList.remove('flex');
-            }
-        });
-
-        // Scroll to top when button is clicked
-        scrollToTopBtn.addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-    </script>
 </body>
 </html>

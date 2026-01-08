@@ -32,15 +32,13 @@
 
         :root {
             --color-gold: #d1b05e;
-            --color-blue: #2b6399;
-            --color-dark-purple: #3c2c64;
-            --color-teal: #69a2a4;
-            --color-purple: #85729d;
-            --color-light-blue: #7b87b8;
-            --color-deep-purple: #4a3570;
-            --color-lavender: #a48cb4;
-            --color-violet: #614c80;
-            --color-green: #249484;
+            --color-blue: #1a4d7a;
+            --color-dark-blue: #0f2d4a;
+            --color-red: #c41e3a;
+            --color-gray: #2c3e50;
+            --color-light-gray: #ecf0f1;
+            --color-green: #27ae60;
+            --color-orange: #e67e22;
         }
 
         body {
@@ -51,7 +49,7 @@
 
         .sidebar {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            background: linear-gradient(180deg, var(--color-dark-purple) 0%, var(--color-deep-purple) 100%);
+            background: linear-gradient(180deg, var(--color-dark-blue) 0%, var(--color-blue) 100%);
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
             width: 18rem;
         }
@@ -184,7 +182,7 @@
 
         /* Footer styles */
         .main-footer {
-            background: linear-gradient(135deg, var(--color-dark-purple) 0%, var(--color-deep-purple) 100%);
+            background: linear-gradient(135deg, var(--color-dark-blue) 0%, var(--color-blue) 100%);
             color: white;
             padding: 1rem 1.5rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -200,15 +198,15 @@
 
         /* Gradient backgrounds for better visual appeal */
         .gradient-bg-primary {
-            background: linear-gradient(135deg, var(--color-blue) 0%, var(--color-deep-purple) 100%);
+            background: linear-gradient(135deg, var(--color-blue) 0%, var(--color-dark-blue) 100%);
         }
 
         .gradient-bg-secondary {
-            background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-teal) 100%);
+            background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-orange) 100%);
         }
 
         .gradient-text-primary {
-            background: linear-gradient(135deg, var(--color-blue) 0%, var(--color-deep-purple) 100%);
+            background: linear-gradient(135deg, var(--color-blue) 0%, var(--color-dark-blue) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -217,18 +215,19 @@
         /* Brand color utilities */
         .bg-brand-blue { background-color: var(--color-blue); }
         .bg-brand-gold { background-color: var(--color-gold); }
-        .bg-brand-purple { background-color: var(--color-dark-purple); }
-        .bg-brand-teal { background-color: var(--color-teal); }
+        .bg-brand-dark-blue { background-color: var(--color-dark-blue); }
+        .bg-brand-red { background-color: var(--color-red); }
         .bg-brand-green { background-color: var(--color-green); }
-        .bg-brand-light-blue { background-color: var(--color-light-blue); }
-        .bg-brand-deep-purple { background-color: var(--color-deep-purple); }
-        .bg-brand-lavender { background-color: var(--color-lavender); }
+        .bg-brand-orange { background-color: var(--color-orange); }
+        .bg-brand-gray { background-color: var(--color-gray); }
+        .bg-brand-light-gray { background-color: var(--color-light-gray); }
 
         .text-brand-gold { color: var(--color-gold); }
         .text-brand-blue { color: var(--color-blue); }
-        .text-brand-purple { color: var(--color-dark-purple); }
-        .text-brand-teal { color: var(--color-teal); }
+        .text-brand-dark-blue { color: var(--color-dark-blue); }
+        .text-brand-red { color: var(--color-red); }
         .text-brand-green { color: var(--color-green); }
+        .text-brand-orange { color: var(--color-orange); }
 
         .border-brand-gold { border-color: var(--color-gold); }
         .border-brand-blue { border-color: var(--color-blue); }

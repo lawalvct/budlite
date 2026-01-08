@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Tenant;
 use App\Models\User;
 use App\Helpers\TenantHelper;
+use Illuminate\Broadcasting\Broadcasters\NullBroadcaster;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -53,7 +54,10 @@ class TenantController extends Controller
         // Get available plans for selection
         $plans = \App\Models\Plan::where('is_active', true)->orderBy('sort_order')->get();
 
-        return view('super-admin.tenants.create', compact('plans'));
+        // Get available business types
+        $businessTypes = \App\Models\BusinessType::active()->ordered()->get();
+
+        return view('super-admin.tenants.create', compact('plans', 'businessTypes'));
     }
 
     public function store(Request $request)
@@ -62,9 +66,8 @@ class TenantController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:tenants,email',
             'phone' => 'nullable|string|max:20',
-            'business_type' => 'required|string',
-            'plan_id' => 'required|integer|exists:plans,id',
-            'billing_cycle' => 'required|in:monthly,yearly',
+            'business_type' => 'required|integer|exists:business_types,id',
+
 
             // Owner details
             'owner_name' => 'required|string|max:255',
@@ -76,7 +79,7 @@ class TenantController extends Controller
             DB::beginTransaction();
 
             // Get the selected plan
-            $selectedPlan = \App\Models\Plan::findOrFail($validated['plan_id']);
+           //selectedPlan = \App\Models\Plan::findOrFail($validated['plan_id']);
 
             // Create tenant
             $tenant = Tenant::create([
@@ -84,17 +87,39 @@ class TenantController extends Controller
                 'slug' => TenantHelper::generateUniqueSlug($validated['name']),
                 'email' => $validated['email'],
                 'phone' => $validated['phone'],
-                'business_type' => $validated['business_type'],
-                'plan_id' => $selectedPlan->id,
-                'billing_cycle' => $validated['billing_cycle'],
-                'subscription_status' => 'trial',
-                'trial_ends_at' => now()->addDays(30),
+                'business_type_id' => $validated['business_type'],
+                'plan_id' => 4,
+                'billing_cycle' => 'yearly',
+                'subscription_status' => 'active',
+                'trial_ends_at' => null,
                 'created_by' => Auth::guard('super_admin')->id(),
                 'is_active' => true,
             ]);
 
-            // Start trial for the selected plan
-            $tenant->startTrial($selectedPlan);
+            // Calculate subscription amount based on billing cycle
+            $amount = 'yearly'
+                ? 0
+                : 0;
+
+            // Create subscription (1 year duration)
+            \App\Models\Subscription::create([
+                'tenant_id' => $tenant->id,
+                'plan_id' => 4,
+                'plan' => 'enterprise',
+                'billing_cycle' =>'yearly',
+                'amount' => $amount,
+                'currency' => 'NGN',
+                'status' => 'active',
+                'starts_at' => now(),
+                'ends_at' => now()->addYear(), // 1 year duration
+                'payment_method' => 'manual',
+                'payment_reference' => 'ADMIN-' . strtoupper(uniqid()),
+                'metadata' => [
+                    'created_by_admin' => Auth::guard('super_admin')->id(),
+                    'admin_name' => Auth::guard('super_admin')->user()->name,
+                    'note' => 'Created by super admin',
+                ],
+            ]);
 
             // Create owner user
             User::create([
@@ -111,14 +136,14 @@ class TenantController extends Controller
 
             return redirect()
                 ->route('super-admin.tenants.show', $tenant)
-                ->with('success', 'Tenant created successfully! A 30-day trial for the ' . $selectedPlan->name . ' plan has been started.');
+                ->with('success', 'Companey created successfully!');
 
         } catch (\Exception $e) {
             DB::rollBack();
 
             return back()
                 ->withInput()
-                ->withErrors(['error' => 'Failed to create tenant: ' . $e->getMessage()]);
+                ->withErrors(['error' => 'Failed to create company: ' . $e->getMessage()]);
         }
     }
 

@@ -1,647 +1,706 @@
 @extends('layouts.app')
 
-@section('title', 'Budlite -  Business Management Software')
-@section('description', 'Comprehensive business management software built specifically for  businesses. Manage accounting, inventory, sales, and more in one platform.')
+@section('title', 'Budlite Group - Security, Technology & Innovation Solutions')
+@section('description', 'Trusted provider of advanced security, technology, agriculture, and solar solutions. Protecting what matters most with innovation and excellence.')
 
 @section('content')
 <style>
     :root {
         --color-gold: #d1b05e;
-        --color-blue: #2b6399;
-        --color-dark-purple: #3c2c64;
-        --color-teal: #69a2a4;
-        --color-purple: #85729d;
-        --color-light-blue: #7b87b8;
-        --color-deep-purple: #4a3570;
-        --color-lavender: #a48cb4;
-        --color-violet: #614c80;
-        --color-green: #249484;
-    }
-
-    .carousel-container {
-        position: relative;
-        overflow: hidden;
-    }
-
-    .carousel-slide {
-        display: none;
-        animation: fadeIn 0.5s ease-in-out;
-    }
-
-    .carousel-slide.active {
-        display: block;
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-
-    .carousel-indicators {
-        display: flex;
-        justify-content: center;
-        gap: 0.5rem;
-        margin-top: 1rem;
-    }
-
-    .carousel-indicator {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background-color: rgba(255, 255, 255, 0.5);
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-
-    .carousel-indicator.active {
-        background-color: var(--color-gold);
+        --color-blue: #1a4d7a;
+        --color-dark-blue: #0f2d4a;
+        --color-red: #c41e3a;
+        --color-gray: #2c3e50;
+        --color-light-gray: #ecf0f1;
+        --color-green: #27ae60;
+        --color-orange: #e67e22;
     }
 
     .bg-brand-blue { background-color: var(--color-blue); }
     .bg-brand-gold { background-color: var(--color-gold); }
-    .bg-brand-purple { background-color: var(--color-dark-purple); }
-    .bg-brand-teal { background-color: var(--color-teal); }
+    .bg-brand-red { background-color: var(--color-red); }
     .bg-brand-green { background-color: var(--color-green); }
     .text-brand-gold { color: var(--color-gold); }
     .text-brand-blue { color: var(--color-blue); }
-    .border-brand-gold { border-color: var(--color-gold); }
-    .hover\:bg-brand-gold:hover { background-color: var(--color-gold); }
-    .hover\:text-brand-blue:hover { color: var(--color-blue); }
+    .text-brand-red { color: var(--color-red); }
 
-    /* Ensure proper spacing */
     .section-spacing {
-        margin: 0;
-        padding-top: 4rem;
-        padding-bottom: 4rem;
+        padding: 5rem 0;
     }
 
-    .hero-section {
-        margin: 0;
-        padding-top: 5rem;
-        padding-bottom: 5rem;
+    .hero-overlay {
+        background: linear-gradient(135deg, rgba(15, 45, 74, 0.95) 0%, rgba(26, 77, 122, 0.9) 100%);
+    }
+
+    .division-card {
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+    }
+
+    .division-card:hover {
+        transform: translateY(-10px);
+        border-color: var(--color-gold);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .hero-image-container {
+        position: relative;
+        overflow: hidden;
+        border-radius: 20px;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero-image-container img {
+        width: 100%;
+        height: auto;
+        display: block;
+        transition: transform 0.5s ease;
+    }
+
+    .hero-image-container:hover img {
+        transform: scale(1.05);
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fadeInUp {
+        animation: fadeInUp 0.8s ease-out;
+    }
+
+    .feature-icon {
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        margin-bottom: 1.5rem;
     }
 </style>
 
-<!-- Hero Section with Carousel -->
-<section class="gradient-bg text-white py-20 relative overflow-hidden">
-    <div class="absolute inset-0 bg-black opacity-20"></div>
 
-    <!-- Floating background elements -->
-    <div class="absolute top-10 left-10 w-20 h-20 bg-brand-gold opacity-20 rounded-full floating-animation"></div>
-    <div class="absolute top-32 right-20 w-16 h-16 bg-brand-teal opacity-30 rounded-full floating-animation" style="animation-delay: -2s;"></div>
-    <div class="absolute bottom-20 left-1/4 w-12 h-12 bg-brand-lavender opacity-25 rounded-full floating-animation" style="animation-delay: -4s;"></div>
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center bg-gradient-to-br from-gray-900 via-blue-900 to-gray-800">
+    <div class="hero-overlay absolute inset-0"></div>
 
-        <!-- Carousel Container -->
-        <div class="carousel-container">
-            <!-- Slide 1 - Main Hero -->
-            <div class="carousel-slide active text-center">
-                <h1 class="text-4xl md:text-6xl font-bold mb-6">
-                    Manage Your Business
-                    <span class="text-brand-gold">Like a Pro</span>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <!-- Left Content -->
+            <div class="text-white animate-fadeInUp">
+                <div class="inline-block mb-6">
+                    <span class="bg-brand-gold text-gray-900 px-4 py-2 rounded-full text-sm font-semibold">
+                        Security · Technology · Innovation
+                    </span>
+                </div>
+
+                <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+                    Budlite Group
+                    <span class="text-brand-gold block mt-2">Security & Technology Ltd</span>
                 </h1>
-                <p class="text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto">
-                    Complete business management software designed specifically for  entrepreneurs.
-                    <strong class="text-brand-gold">Availability & Affordability</strong> at its finest.
+
+                <p class="text-xl md:text-2xl text-gray-200 mb-8 leading-relaxed">
+                    Trusted provider of advanced security and technology solutions, committed to
+                    <strong class="text-brand-gold">protecting what matters most</strong>.
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    @auth
-                        <a href="{{ route('dashboard') }}" class="bg-brand-gold text-gray-900 px-8 py-4 rounded-lg hover:bg-yellow-400 font-semibold text-lg transition-colors">
-                            Go to Dashboard
-                        </a>
-                    @else
-                        <a href="{{ route('register') }}" class="bg-brand-gold text-gray-900 px-8 py-4 rounded-lg hover:bg-yellow-400 font-semibold text-lg transition-colors">
-                            Start Free Trial
-                        </a>
-                        <a href="{{ route('login') }}" class="border-2 border-brand-gold text-brand-gold px-8 py-4 rounded-lg hover:bg-brand-gold hover:text-gray-900 font-semibold text-lg transition-colors">
-                            Sign In
-                        </a>
-                    @endauth
-                </div>
-                <div class="mt-6 text-gray-300 text-sm">
-                    30-day free trial • No credit card required • Setup in minutes
-                </div>
-            </div>
 
-            <!-- Slide 2 - Availability Focus -->
-            <div class="carousel-slide text-center">
-                <div class="flex items-center justify-center mb-8">
-                    <div class="w-20 h-20 bg-brand-teal rounded-full flex items-center justify-center mr-6">
-                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                    </div>
-                    <div class="text-left">
-                        <h2 class="text-4xl md:text-5xl font-bold text-brand-gold mb-2">24/7 Availability</h2>
-                        <p class="text-xl text-gray-200">Access your business data anytime, anywhere</p>
-                    </div>
+                <div class="flex flex-col sm:flex-row gap-4 mb-8">
+                    <a href="#services" class="bg-brand-gold text-gray-900 px-8 py-4 rounded-lg font-semibold hover:bg-opacity-90 transition-all text-center shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                        Our Services
+                    </a>
+                    <a href="#contact" class="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-gray-900 transition-all text-center">
+                        Contact Us
+                    </a>
                 </div>
-                <p class="text-lg md:text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
-                    Cloud-based solution ensures your business management tools are always available.
-                    Work from office, home, or on-the-go with seamless synchronization across all devices.
-                </p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-                    <div class="bg-white bg-opacity-10 p-6 rounded-lg backdrop-blur-sm">
-                        <h3 class="text-lg font-semibold text-brand-gold mb-2">Cloud Storage</h3>
-                        <p class="text-gray-300">Secure cloud infrastructure</p>
-                    </div>
-                    <div class="bg-white bg-opacity-10 p-6 rounded-lg backdrop-blur-sm">
-                        <h3 class="text-lg font-semibold text-brand-gold mb-2">Mobile Ready</h3>
-                        <p class="text-gray-300">Works on all devices</p>
-                    </div>
-                    <div class="bg-white bg-opacity-10 p-6 rounded-lg backdrop-blur-sm">
-                        <h3 class="text-lg font-semibold text-brand-gold mb-2">Real-time Sync</h3>
-                        <p class="text-gray-300">Instant data updates</p>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Slide 3 - Affordability Focus -->
-            <div class="carousel-slide text-center">
-                <div class="flex items-center justify-center mb-8">
-                    <div class="w-20 h-20 bg-brand-green rounded-full flex items-center justify-center mr-6">
-                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
-                        </svg>
-                    </div>
-                    <div class="text-left">
-                        <h2 class="text-4xl md:text-5xl font-bold text-brand-gold mb-2">Maximum Affordability</h2>
-                        <p class="text-xl text-gray-200">Enterprise features at small business prices</p>
-                    </div>
-                </div>
-                <p class="text-lg md:text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
-                    Get powerful business management tools without breaking the bank.
-                    Designed specifically for Nigerian businesses with pricing that makes sense.
-                </p>
-                <div class="bg-white bg-opacity-10 p-8 rounded-xl backdrop-blur-sm max-w-2xl mx-auto">
-                    <div class="text-center">
-                        <div class="text-5xl font-bold text-brand-gold mb-2">₦5,000</div>
-                        <div class="text-lg text-gray-300 mb-4">per month</div>
-                        <ul class="text-left space-y-2 text-gray-300">
-                            <li class="flex items-center"><span class="text-brand-gold mr-2">✓</span> Unlimited invoices</li>
-                            <li class="flex items-center"><span class="text-brand-gold mr-2">✓</span> Inventory management</li>
-                            <li class="flex items-center"><span class="text-brand-gold mr-2">✓</span> Customer management</li>
-                            <li class="flex items-center"><span class="text-brand-gold mr-2">✓</span> Financial reports</li>
-                            <li class="flex items-center"><span class="text-brand-gold mr-2">✓</span> 24/7 support</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 4 - AI Assistant Focus -->
-            <div class="carousel-slide text-center">
-                <div class="flex items-center justify-center mb-8">
-                    <div class="w-20 h-20 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full flex items-center justify-center mr-6">
-                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-                        </svg>
-                    </div>
-                    <div class="text-left">
-                        <h2 class="text-4xl md:text-5xl font-bold text-brand-gold mb-2">AI-Powered Assistant</h2>
-                        <p class="text-xl text-gray-200">Your intelligent business companion</p>
-                    </div>
-                </div>
-                <p class="text-lg md:text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
-                    Experience the future of business management with AI that learns your patterns, suggests improvements, and automates routine tasks.
-                </p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-                    <div class="bg-white bg-opacity-10 p-6 rounded-lg backdrop-blur-sm">
-                        <h3 class="text-lg font-semibold text-brand-gold mb-2">Smart Suggestions</h3>
-                        <p class="text-gray-300">AI recommends products and actions</p>
-                    </div>
-                    <div class="bg-white bg-opacity-10 p-6 rounded-lg backdrop-blur-sm">
-                        <h3 class="text-lg font-semibold text-brand-gold mb-2">Data Validation</h3>
-                        <p class="text-gray-300">Automatic error detection</p>
-                    </div>
-                    <div class="bg-white bg-opacity-10 p-6 rounded-lg backdrop-blur-sm">
-                        <h3 class="text-lg font-semibold text-brand-gold mb-2">Q&A Assistant</h3>
-                        <p class="text-gray-300">Get answers instantly</p>
-                    </div>
-                    <div class="bg-white bg-opacity-10 p-6 rounded-lg backdrop-blur-sm">
-                        <h3 class="text-lg font-semibold text-brand-gold mb-2">Smart Templates</h3>
-                        <p class="text-gray-300">Personalized workflows</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 5 - Features Overview -->
-            <div class="carousel-slide text-center">
-                <h2 class="text-4xl md:text-5xl font-bold mb-6">
-                    <span class="text-brand-gold">All-in-One</span> Business Solution
-                </h2>
-                <p class="text-xl md:text-2xl text-gray-200 mb-12 max-w-3xl mx-auto">
-                    Everything you need to manage your business efficiently and profitably.
-                </p>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="bg-white bg-opacity-10 p-6 rounded-lg backdrop-blur-sm">
-                        <div class="w-12 h-12 bg-brand-gold rounded-lg flex items-center justify-center mb-4 mx-auto">
-                            <svg class="w-6 h-6 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-lg font-semibold text-brand-gold mb-2">AI-Smart Invoicing</h3>
-                        <p class="text-gray-300 text-sm">AI-powered invoice creation</p>
-                    </div>
-                    <div class="bg-white bg-opacity-10 p-6 rounded-lg backdrop-blur-sm">
-                        <div class="w-12 h-12 bg-brand-teal rounded-lg flex items-center justify-center mb-4 mx-auto">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-lg font-semibold text-brand-gold mb-2">Inventory Control</h3>
-                        <p class="text-gray-300 text-sm">Track stock levels & suppliers</p>
-                    </div>
-                    <div class="bg-white bg-opacity-10 p-6 rounded-lg backdrop-blur-sm">
-                        <div class="w-12 h-12 bg-brand-purple rounded-lg flex items-center justify-center mb-4 mx-auto">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-lg font-semibold text-brand-gold mb-2">Customer Management</h3>
-                        <p class="text-gray-300 text-sm">Build stronger relationships</p>
-                    </div>
-                    <div class="bg-white bg-opacity-10 p-6 rounded-lg backdrop-blur-sm">
-                        <div class="w-12 h-12 bg-brand-green rounded-lg flex items-center justify-center mb-4 mx-auto">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-lg font-semibold text-brand-gold mb-2">Financial Reports</h3>
-                        <p class="text-gray-300 text-sm">Detailed business insights</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Carousel Indicators -->
-        <div class="carousel-indicators">
-            <div class="carousel-indicator active" onclick="currentSlide(1)"></div>
-            <div class="carousel-indicator" onclick="currentSlide(2)"></div>
-            <div class="carousel-indicator" onclick="currentSlide(3)"></div>
-            <div class="carousel-indicator" onclick="currentSlide(4)"></div>
-            <div class="carousel-indicator" onclick="currentSlide(5)"></div>
-        </div>
-
-        <!-- Carousel Navigation Arrows -->
-        <button class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full p-3 transition-all duration-300" onclick="plusSlides(-1)">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-            </svg>
-        </button>
-        <button class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full p-3 transition-all duration-300" onclick="plusSlides(1)">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-            </svg>
-        </button>
-    </div>
-</section>
-
-<!-- Brand Promise Section -->
-<section class="section-spacing bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Our Promise: <span class="text-brand-blue">Availability & Affordability</span>
-            </h2>
-            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                We believe every Nigerian business deserves access to world-class management tools without the premium price tag.
-            </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div class="space-y-6">
-                <div class="flex items-start">
-                    <div class="w-12 h-12 bg-brand-teal rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                        </svg>
+                <div class="grid grid-cols-3 gap-6 pt-8 border-t border-gray-600">
+                    <div>
+                        <div class="text-3xl font-bold text-brand-gold mb-1">10+</div>
+                        <div class="text-sm text-gray-300">Years Experience</div>
                     </div>
                     <div>
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Always Available</h3>
-                        <p class="text-gray-600">99.9% uptime guarantee with 24/7 cloud access from any device, anywhere in Nigeria.</p>
-                    </div>
-                </div>
-
-                <div class="flex items-start">
-                    <div class="w-12 h-12 bg-brand-green rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
-                        </svg>
+                        <div class="text-3xl font-bold text-brand-gold mb-1">500+</div>
+                        <div class="text-sm text-gray-300">Clients Served</div>
                     </div>
                     <div>
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Truly Affordable</h3>
-                        <p class="text-gray-600">Transparent pricing starting from ₦5,000/month with no hidden fees or setup costs.</p>
-                    </div>
-                </div>
-
-                <div class="flex items-start">
-                    <div class="w-12 h-12 bg-brand-blue rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 2.25a9.75 9.75 0 109.75 9.75A9.75 9.75 0 0012 2.25z"></path>
-                        </svg>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Nigerian-First Design</h3>
-                        <p class="text-gray-600">Built specifically for Nigerian businesses with local currency, tax compliance, and business practices in mind.</p>
+                        <div class="text-3xl font-bold text-brand-gold mb-1">24/7</div>
+                        <div class="text-sm text-gray-300">Support</div>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-gradient-to-br from-gray-50 to-gray-100 p-8 rounded-2xl">
-                <div class="text-center">
-                    <div class="text-4xl font-bold text-brand-blue mb-2">₦5,000</div>
-                    <div class="text-lg text-gray-600 mb-6">per month</div>
-                    <div class="space-y-3 text-left">
-                        <div class="flex items-center">
-                            <span class="text-brand-green mr-3">✓</span>
-                            <span class="text-gray-700">Unlimited invoices & quotes</span>
-                        </div>
-                        <div class="flex items-center">
-                            <span class="text-brand-green mr-3">✓</span>
-                            <span class="text-gray-700">Complete inventory management</span>
-                        </div>
-                        <div class="flex items-center">
-                            <span class="text-brand-green mr-3">✓</span>
-                            <span class="text-gray-700">Customer relationship management</span>
-                        </div>
-                        <div class="flex items-center">
-                            <span class="text-brand-green mr-3">✓</span>
-                            <span class="text-gray-700">Financial reports & analytics</span>
-                        </div>
-                        <div class="flex items-center">
-                            <span class="text-brand-green mr-3">✓</span>
-                            <span class="text-gray-700">AI-powered business assistant</span>
-                        </div>
-                        <div class="flex items-center">
-                            <span class="text-brand-green mr-3">✓</span>
-                            <span class="text-gray-700">24/7 customer support</span>
-                        </div>
-                        <div class="flex items-center">
-                            <span class="text-brand-green mr-3">✓</span>
-                            <span class="text-gray-700">Mobile app access</span>
-                        </div>
-                    </div>
-                    <div class="mt-6">
-                        <a href="{{ route('pricing') }}" class="bg-brand-blue text-white px-6 py-3 rounded-lg hover:opacity-90 transition-opacity font-medium">
-                            View All Plans
-                        </a>
+            <!-- Right Image -->
+            <div class="animate-fadeInUp" style="animation-delay: 0.2s;">
+                <div class="hero-image-container">
+                    <img src="{{ asset('images/hero-image.png') }}" alt="Budlite Security Services" class="w-full">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6">
+                        <p class="text-white font-semibold text-lg">Professional Security Solutions</p>
+                        <p class="text-gray-300 text-sm">Innovation · Reliability · Excellence</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+        </svg>
+    </div>
 </section>
 
-<!-- Features Section -->
-<section class="section-spacing bg-gray-50">
+<!-- About Section -->
+<section class="section-spacing bg-white" id="about">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Everything You Need to Run Your Business
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                About <span class="text-brand-blue">Budlite Group</span>
             </h2>
-            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                From invoicing to inventory management, we've got all the tools Nigerian businesses need to succeed.
+            <div class="w-24 h-1 bg-brand-gold mx-auto mb-8"></div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                    Budlite Security & Technology Ltd is a trusted provider of advanced security and technology solutions,
+                    committed to protecting what matters most. With a focus on innovation and reliability, we deliver tailored
+                    services designed to safeguard businesses, properties, and individuals across various sectors.
+                </p>
+
+                <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                    From intelligent surveillance systems to state-of-the-art access control solutions, we integrate cutting-edge
+                    technology into every aspect of our operations. Our mission is to provide clients with total peace of mind
+                    through professional service, technical expertise, and a customer-first approach.
+                </p>
+
+                <p class="text-lg text-gray-700 mb-8 leading-relaxed">
+                    At Budlite, we believe that true security goes beyond just protection — it's about
+                    <strong class="text-brand-blue">trust, integrity, and excellence</strong>. Whether you're a small business,
+                    a corporate facility, or a residential estate, we work closely with you to design and implement scalable,
+                    effective solutions that fit your unique needs.
+                </p>
+
+                <div class="bg-brand-blue text-white p-6 rounded-lg">
+                    <p class="text-lg font-semibold italic">
+                        "Let us help you secure today and prepare for tomorrow — with technology that thinks ahead
+                        and service you can depend on."
+                    </p>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <div class="bg-gray-50 p-6 rounded-xl border-l-4 border-brand-gold">
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Our Vision</h3>
+                    <p class="text-gray-700">
+                        To be the leading provider of integrated security and technology solutions across Nigeria,
+                        setting the standard for innovation, reliability, and customer satisfaction.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-xl border-l-4 border-brand-blue">
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Our Mission</h3>
+                    <p class="text-gray-700">
+                        To deliver comprehensive security and technology solutions that protect lives, assets, and businesses
+                        through cutting-edge innovation, professional excellence, and unwavering commitment to client success.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-xl border-l-4 border-brand-red">
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Our Values</h3>
+                    <ul class="text-gray-700 space-y-2">
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-brand-gold mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            Integrity & Trust
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-brand-gold mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            Innovation & Excellence
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-brand-gold mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            Customer-First Approach
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services/Divisions Section -->
+<section class="section-spacing bg-gray-50" id="services">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                Our <span class="text-brand-gold">Divisions</span>
+            </h2>
+            <div class="w-24 h-1 bg-brand-blue mx-auto mb-8"></div>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Comprehensive solutions across multiple sectors to meet all your security, technology,
+                agriculture, and energy needs.
             </p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
-                <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-6" style="background-color: var(--color-gold);">
-                    <svg class="w-6 h-6 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                    </svg>
+            <!-- Budlite Security -->
+            <div class="division-card bg-white rounded-2xl shadow-lg overflow-hidden">
+                <div class="bg-gradient-to-br from-blue-600 to-blue-800 p-8 text-white">
+                    <div class="feature-icon bg-white bg-opacity-20">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3">Budlite Security</h3>
+                    <p class="text-blue-100">Professional security personnel and mobile patrol services</p>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-900 mb-3">AI-Powered Smart Invoicing</h3>
-                <p class="text-gray-600 mb-4">Create professional invoices with AI assistance that suggests products, validates data, and automates routine tasks.</p>
-                <ul class="text-sm text-gray-500 space-y-1 mb-4">
-                    <li>• AI-powered product suggestions</li>
-                    <li>• Smart data validation</li>
-                    <li>• Automated invoice generation</li>
-                    <li>• Q&A assistant for help</li>
-                </ul>
-                <a href="{{ route('features') }}" class="text-brand-blue hover:text-brand-purple font-medium">Learn more →</a>
+                <div class="p-8">
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-brand-gold mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-gray-700">Trained security officers for companies</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-brand-gold mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-gray-700">24/7 mobile patrol services</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-brand-gold mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-gray-700">Event security management</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-brand-gold mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-gray-700">Risk assessment & consulting</span>
+                        </li>
+                    </ul>
+                    <a href="#contact" class="block w-full text-center bg-brand-blue text-white py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-all">
+                        Learn More
+                    </a>
+                </div>
             </div>
 
-            <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
-                <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-6" style="background-color: var(--color-teal);">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
-                    </svg>
+            <!-- Budlite CCTV -->
+            <div class="division-card bg-white rounded-2xl shadow-lg overflow-hidden">
+                <div class="bg-gradient-to-br from-gray-700 to-gray-900 p-8 text-white">
+                    <div class="feature-icon bg-white bg-opacity-20">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3">Budlite CCTV Surveillance</h3>
+                    <p class="text-gray-200">Advanced surveillance systems for total monitoring coverage</p>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-900 mb-3">Inventory Control</h3>
-                <p class="text-gray-600 mb-4">Track stock levels, manage suppliers, and get alerts when items are running low.</p>
-                <ul class="text-sm text-gray-500 space-y-1 mb-4">
-                    <li>• Real-time stock tracking</li>
-                    <li>• Low stock alerts</li>
-                    <li>• Supplier management</li>
-                    <li>• Product categorization</li>
-                </ul>
-                <a href="{{ route('features') }}" class="text-brand-blue hover:text-brand-purple font-medium">Learn more →</a>
+                <div class="p-8">
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-brand-gold mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-gray-700">HD & 4K camera installation</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-brand-gold mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-gray-700">Remote monitoring & playback</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-brand-gold mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-gray-700">Night vision technology</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-brand-gold mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-gray-700">Cloud storage solutions</span>
+                        </li>
+                    </ul>
+                    <a href="#contact" class="block w-full text-center bg-brand-blue text-white py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-all">
+                        Learn More
+                    </a>
+                </div>
             </div>
 
-            <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
-                <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-6" style="background-color: var(--color-purple);">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                    </svg>
+            <!-- Security Equipment Sales -->
+            <div class="division-card bg-white rounded-2xl shadow-lg overflow-hidden">
+                <div class="bg-gradient-to-br from-red-600 to-red-800 p-8 text-white">
+                    <div class="feature-icon bg-white bg-opacity-20">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3">Security Equipment Sales</h3>
+                    <p class="text-red-100">High-quality security equipment from trusted manufacturers</p>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-900 mb-3">Customer Management</h3>
-                <p class="text-gray-600 mb-4">Keep detailed customer records, track purchase history, and build stronger relationships.</p>
-                <ul class="text-sm text-gray-500 space-y-1 mb-4">
-                    <li>• Customer profiles</li>
-                    <li>• Purchase history</li>
-                    <li>• Communication logs</li>
-                    <li>• Payment tracking</li>
-                </ul>
-                <a href="{{ route('features') }}" class="text-brand-blue hover:text-brand-purple font-medium">Learn more →</a>
+                <div class="p-8">
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-brand-gold mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-gray-700">CCTV cameras & systems</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-brand-gold mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-gray-700">Access control systems</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-brand-gold mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-gray-700">Alarm systems & sensors</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-brand-gold mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-gray-700">Installation & after-sales support</span>
+                        </li>
+                    </ul>
+                    <a href="#contact" class="block w-full text-center bg-brand-blue text-white py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-all">
+                        Shop Now
+                    </a>
+                </div>
             </div>
 
-            <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
-                <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-6" style="background-color: var(--color-green);">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <!-- Budlite Agriculture -->
+            <div class="division-card bg-white rounded-2xl shadow-lg overflow-hidden">
+                <div class="bg-gradient-to-br from-green-600 to-green-800 p-8 text-white">
+                    <div class="feature-icon bg-white bg-opacity-20">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3">Budlite Agriculture</h3>
+                    <p class="text-green-100">Sustainable farming and agricultural solutions</p>
+                </div>
+                <div class="p-8">
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-brand-gold mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-gray-700">Modern farming techniques</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-brand-gold mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-gray-700">Crop production & management</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-brand-gold mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-gray-700">Agricultural consulting</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-brand-gold mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-gray-700">Supply chain solutions</span>
+                        </li>
+                    </ul>
+                    <a href="#contact" class="block w-full text-center bg-brand-blue text-white py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-all">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+
+            <!-- Budlite Solar -->
+            <div class="division-card bg-white rounded-2xl shadow-lg overflow-hidden">
+                <div class="bg-gradient-to-br from-yellow-500 to-orange-600 p-8 text-white">
+                    <div class="feature-icon bg-white bg-opacity-20">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3">Budlite Solar</h3>
+                    <p class="text-orange-100">Clean, renewable energy solutions for homes and businesses</p>
+                </div>
+                <div class="p-8">
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-brand-gold mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-gray-700">Solar panel installation</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-brand-gold mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-gray-700">Inverter & battery systems</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-brand-gold mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-gray-700">Energy audit & consultation</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-brand-gold mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-gray-700">Maintenance & support</span>
+                        </li>
+                    </ul>
+                    <a href="#contact" class="block w-full text-center bg-brand-blue text-white py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-all">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+
+            <!-- Additional Services -->
+            <div class="division-card bg-white rounded-2xl shadow-lg overflow-hidden">
+                <div class="bg-gradient-to-br from-purple-600 to-indigo-800 p-8 text-white">
+                    <div class="feature-icon bg-white bg-opacity-20">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3">Integrated Solutions</h3>
+                    <p class="text-purple-100">Complete security & technology integration for your facility</p>
+                </div>
+                <div class="p-8">
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-brand-gold mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-gray-700">Comprehensive security audits</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-brand-gold mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-gray-700">Custom solution design</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-brand-gold mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-gray-700">Project management</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-brand-gold mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-gray-700">Ongoing maintenance & support</span>
+                        </li>
+                    </ul>
+                    <a href="#contact" class="block w-full text-center bg-brand-blue text-white py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-all">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Best Practices Section -->
+<section class="section-spacing bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                We Follow <span class="text-brand-gold">Best Practices</span>
+            </h2>
+            <div class="w-24 h-1 bg-brand-blue mx-auto mb-8"></div>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Budlite adheres to best practices, ensuring professional, compliant, and high-standard
+                security and technology services.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="text-center p-8 bg-gray-50 rounded-xl hover:shadow-lg transition-all">
+                <div class="feature-icon bg-brand-blue mx-auto">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Compliance with Standards</h3>
+                <p class="text-gray-600">
+                    We adhere to international security standards and local regulations, ensuring all
+                    operations meet or exceed industry requirements.
+                </p>
+            </div>
+
+            <div class="text-center p-8 bg-gray-50 rounded-xl hover:shadow-lg transition-all">
+                <div class="feature-icon bg-brand-gold mx-auto">
+                    <svg class="w-8 h-8 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Highly Trained Personnel</h3>
+                <p class="text-gray-600">
+                    Our team undergoes rigorous training and continuous professional development to deliver
+                    expert service you can trust.
+                </p>
+            </div>
+
+            <div class="text-center p-8 bg-gray-50 rounded-xl hover:shadow-lg transition-all">
+                <div class="feature-icon bg-brand-red mx-auto">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Advanced Security Technology</h3>
+                <p class="text-gray-600">
+                    We deploy cutting-edge technology and equipment from world-leading manufacturers to
+                    provide superior protection.
+                </p>
+            </div>
+
+            <div class="text-center p-8 bg-gray-50 rounded-xl hover:shadow-lg transition-all">
+                <div class="feature-icon bg-brand-green mx-auto">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                     </svg>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-900 mb-3">Financial Reports</h3>
-                <p class="text-gray-600 mb-4">Get detailed insights into your business performance with comprehensive financial reporting.</p>
-                <ul class="text-sm text-gray-500 space-y-1 mb-4">
-                    <li>• Profit & loss statements</li>
-                    <li>• Cash flow reports</li>
-                    <li>• Sales analytics</li>
-                    <li>• Tax compliance reports</li>
-                </ul>
-                <a href="{{ route('features') }}" class="text-brand-blue hover:text-brand-purple font-medium">Learn more →</a>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Tailored Risk Solutions</h3>
+                <p class="text-gray-600">
+                    Every client receives customized security solutions designed specifically for their
+                    unique risks, environment, and budget.
+                </p>
             </div>
+        </div>
+    </div>
+</section>
 
-            <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
-                <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-6" style="background-color: var(--color-light-blue);">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+<!-- Why Choose Us Section -->
+<section class="section-spacing bg-gradient-to-br from-blue-900 to-blue-800 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">
+                Why Choose <span class="text-brand-gold">Budlite Group</span>
+            </h2>
+            <div class="w-24 h-1 bg-brand-gold mx-auto mb-8"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="bg-white bg-opacity-10 backdrop-blur-sm p-8 rounded-xl border border-white border-opacity-20">
+                <div class="w-12 h-12 bg-brand-gold rounded-lg flex items-center justify-center mb-6">
+                    <svg class="w-6 h-6 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                     </svg>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-900 mb-3">Mobile Access</h3>
-                <p class="text-gray-600 mb-4">Manage your business on-the-go with our mobile-responsive platform and dedicated apps.</p>
-                <ul class="text-sm text-gray-500 space-y-1 mb-4">
-                    <li>• Mobile-responsive design</li>
-                    <li>• iOS & Android apps</li>
-                    <li>• Offline capabilities</li>
-                    <li>• Real-time notifications</li>
-                </ul>
-                <a href="{{ route('features') }}" class="text-brand-blue hover:text-brand-purple font-medium">Learn more →</a>
+                <h3 class="text-2xl font-bold mb-4">24/7 Availability</h3>
+                <p class="text-gray-200">
+                    Round-the-clock monitoring, support, and rapid response teams ensure your security
+                    is never compromised, any time of day or night.
+                </p>
             </div>
 
-            <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
-                <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-6" style="background-color: var(--color-deep-purple);">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="bg-white bg-opacity-10 backdrop-blur-sm p-8 rounded-xl border border-white border-opacity-20">
+                <div class="w-12 h-12 bg-brand-gold rounded-lg flex items-center justify-center mb-6">
+                    <svg class="w-6 h-6 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold mb-4">Competitive Pricing</h3>
+                <p class="text-gray-200">
+                    Professional security and technology services at affordable rates. We believe quality
+                    protection should be accessible to all businesses.
+                </p>
+            </div>
+
+            <div class="bg-white bg-opacity-10 backdrop-blur-sm p-8 rounded-xl border border-white border-opacity-20">
+                <div class="w-12 h-12 bg-brand-gold rounded-lg flex items-center justify-center mb-6">
+                    <svg class="w-6 h-6 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold mb-4">Proven Track Record</h3>
+                <p class="text-gray-200">
+                    Over 10 years of excellence serving 500+ satisfied clients across residential,
+                    commercial, and industrial sectors.
+                </p>
+            </div>
+
+            <div class="bg-white bg-opacity-10 backdrop-blur-sm p-8 rounded-xl border border-white border-opacity-20">
+                <div class="w-12 h-12 bg-brand-gold rounded-lg flex items-center justify-center mb-6">
+                    <svg class="w-6 h-6 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold mb-4">Integrated Solutions</h3>
+                <p class="text-gray-200">
+                    From security personnel to solar power, we offer complete integrated solutions
+                    tailored to your specific business needs.
+                </p>
+            </div>
+
+            <div class="bg-white bg-opacity-10 backdrop-blur-sm p-8 rounded-xl border border-white border-opacity-20">
+                <div class="w-12 h-12 bg-brand-gold rounded-lg flex items-center justify-center mb-6">
+                    <svg class="w-6 h-6 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
                     </svg>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-900 mb-3">Secure & Compliant</h3>
-                <p class="text-gray-600 mb-4">Bank-level security with Nigerian tax compliance and data protection standards.</p>
-                <ul class="text-sm text-gray-500 space-y-1 mb-4">
-                    <li>• SSL encryption</li>
-                    <li>• Regular backups</li>
-                    <li>• Nigerian tax compliance</li>
-                    <li>• GDPR compliant</li>
-                </ul>
-                <a href="{{ route('features') }}" class="text-brand-blue hover:text-brand-purple font-medium">Learn more →</a>
+                <h3 class="text-2xl font-bold mb-4">Trusted & Reliable</h3>
+                <p class="text-gray-200">
+                    Built on a foundation of trust, integrity, and excellence. Our reputation speaks
+                    for itself through countless successful partnerships.
+                </p>
+            </div>
+
+            <div class="bg-white bg-opacity-10 backdrop-blur-sm p-8 rounded-xl border border-white border-opacity-20">
+                <div class="w-12 h-12 bg-brand-gold rounded-lg flex items-center justify-center mb-6">
+                    <svg class="w-6 h-6 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold mb-4">Technical Expertise</h3>
+                <p class="text-gray-200">
+                    Our team of certified professionals brings years of technical expertise and
+                    industry knowledge to every project.
+                </p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- AI Assistant Section -->
-<section class="section-spacing bg-gradient-to-br from-indigo-50 to-purple-50">
+<!-- Client Testimonials -->
+<section class="section-spacing bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
-            <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full mb-6">
-                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-                </svg>
-            </div>
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Meet Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">AI Business Assistant</span>
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                What Our <span class="text-brand-blue">Clients Say</span>
             </h2>
-            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                Powered by advanced AI technology, Budlite doesn't just manage your business - it intelligently assists you every step of the way.
-            </p>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div class="space-y-8">
-                <div class="flex items-start">
-                    <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Smart Product Suggestions</h3>
-                        <p class="text-gray-600">AI analyzes your inventory and customer patterns to suggest the right products for each invoice, saving you time and reducing errors.</p>
-                    </div>
-                </div>
-
-                <div class="flex items-start">
-                    <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Intelligent Data Validation</h3>
-                        <p class="text-gray-600">Automatically validates invoice data, checks stock levels, and alerts you to potential issues before they become problems.</p>
-                    </div>
-                </div>
-
-                <div class="flex items-start">
-                    <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">24/7 Q&A Assistant</h3>
-                        <p class="text-gray-600">Get instant answers to your business questions. Our AI assistant understands your business context and provides relevant guidance.</p>
-                    </div>
-                </div>
-
-                <div class="flex items-start">
-                    <div class="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Smart Templates & Automation</h3>
-                        <p class="text-gray-600">AI learns from your business patterns to create personalized templates and automate repetitive tasks, making your workflow more efficient.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
-                <div class="bg-gradient-to-r from-purple-600 to-indigo-600 p-6 rounded-lg text-white mb-6">
-                    <div class="flex items-center mb-4">
-                        <div class="w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center mr-3">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                            </svg>
-                        </div>
-                        <h4 class="text-lg font-semibold">AI-Powered Features</h4>
-                    </div>
-                    <p class="text-purple-100 text-sm">Your intelligent business companion that works 24/7</p>
-                </div>
-
-                <div class="space-y-4">
-                    <div class="flex items-center p-3 bg-purple-50 rounded-lg">
-                        <div class="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
-                        <span class="text-gray-700 text-sm">Suggests products based on customer history</span>
-                    </div>
-                    <div class="flex items-center p-3 bg-blue-50 rounded-lg">
-                        <div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-                        <span class="text-gray-700 text-sm">Validates invoice data in real-time</span>
-                    </div>
-                    <div class="flex items-center p-3 bg-green-50 rounded-lg">
-                        <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
-                        <span class="text-gray-700 text-sm">Answers business questions instantly</span>
-                    </div>
-                    <div class="flex items-center p-3 bg-orange-50 rounded-lg">
-                        <div class="w-2 h-2 bg-orange-500 rounded-full mr-3"></div>
-                        <span class="text-gray-700 text-sm">Creates personalized workflow templates</span>
-                    </div>
-                </div>
-
-                <div class="mt-6 p-4 bg-gray-50 rounded-lg">
-                    <p class="text-sm text-gray-600 italic">
-                        "The AI assistant feels like having a business expert right beside me. It catches mistakes I might miss and suggests improvements I wouldn't have thought of."
-                    </p>
-                    <div class="flex items-center mt-3">
-                        <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center mr-2">
-                            <span class="text-white text-xs font-semibold">AM</span>
-                        </div>
-                        <div>
-                            <div class="text-xs font-semibold text-gray-900">Adebayo Mustapha</div>
-                            <div class="text-xs text-gray-500">Tech Entrepreneur</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Testimonials Section -->
-<section class="section-spacing bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Trusted by Nigerian Businesses
-            </h2>
-            <p class="text-xl text-gray-600">Join thousands of businesses already growing with Budlite</p>
+            <div class="w-24 h-1 bg-brand-gold mx-auto mb-8"></div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="bg-gray-50 p-8 rounded-xl">
-                <div class="flex items-center mb-4">
+            <div class="bg-white p-8 rounded-xl shadow-lg">
+                <div class="flex items-center mb-6">
                     <div class="flex text-brand-gold">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
@@ -660,20 +719,23 @@
                         </svg>
                     </div>
                 </div>
-                <p class="text-gray-600 mb-4">"Finally, a business software that understands Nigerian businesses! The affordability is unmatched, and I love how I can access everything from my phone. Customer support is excellent too."</p>
+                <p class="text-gray-700 mb-6 italic">
+                    "Budlite has been our security partner for 5 years. Their professionalism and reliability
+                    are unmatched. The CCTV system they installed has been flawless."
+                </p>
                 <div class="flex items-center">
-                    <div class="w-10 h-10 bg-brand-teal rounded-full flex items-center justify-center mr-3">
-                        <span class="text-white font-semibold">FK</span>
+                    <div class="w-12 h-12 bg-brand-blue rounded-full flex items-center justify-center text-white font-bold mr-4">
+                        AO
                     </div>
                     <div>
-                        <div class="font-semibold text-gray-900">Fatima Kano</div>
-                        <div class="text-sm text-gray-500">Restaurant Owner, Abuja</div>
+                        <div class="font-semibold text-gray-900">Adebayo Ogunlesi</div>
+                        <div class="text-sm text-gray-600">CEO, Phoenix Industries Ltd</div>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-gray-50 p-8 rounded-xl">
-                <div class="flex items-center mb-4">
+            <div class="bg-white p-8 rounded-xl shadow-lg">
+                <div class="flex items-center mb-6">
                     <div class="flex text-brand-gold">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
@@ -692,20 +754,23 @@
                         </svg>
                     </div>
                 </div>
-                <p class="text-gray-600 mb-4">"Budlite has transformed how I manage my retail business. The inventory tracking is spot-on, and the financial reports help me make better decisions. Worth every naira!"</p>
+                <p class="text-gray-700 mb-6 italic">
+                    "The solar installation was seamless. We've reduced our energy costs by 60% and the system
+                    has been maintenance-free. Highly recommend Budlite Solar!"
+                </p>
                 <div class="flex items-center">
-                    <div class="w-10 h-10 bg-brand-green rounded-full flex items-center justify-center mr-3">
-                        <span class="text-white font-semibold">OA</span>
+                    <div class="w-12 h-12 bg-brand-green rounded-full flex items-center justify-center text-white font-bold mr-4">
+                        CN
                     </div>
                     <div>
-                        <div class="font-semibold text-gray-900">Olumide Adebayo</div>
-                        <div class="text-sm text-gray-500">Retail Store Owner, Lagos</div>
+                        <div class="font-semibold text-gray-900">Chioma Nwosu</div>
+                        <div class="text-sm text-gray-600">Operations Manager, GreenTech Hub</div>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-gray-50 p-8 rounded-xl">
-                <div class="flex items-center mb-4">
+            <div class="bg-white p-8 rounded-xl shadow-lg">
+                <div class="flex items-center mb-6">
                     <div class="flex text-brand-gold">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
@@ -724,14 +789,17 @@
                         </svg>
                     </div>
                 </div>
-                <p class="text-gray-600 mb-4">"As a service provider, I needed something simple yet powerful. Budlite's customer management and invoicing features are exactly what I needed. The price is very reasonable too."</p>
+                <p class="text-gray-700 mb-6 italic">
+                    "Outstanding service! Their security guards are well-trained and professional. We've had
+                    zero incidents since partnering with Budlite. True peace of mind."
+                </p>
                 <div class="flex items-center">
-                    <div class="w-10 h-10 bg-brand-purple rounded-full flex items-center justify-center mr-3">
-                        <span class="text-white font-semibold">CU</span>
+                    <div class="w-12 h-12 bg-brand-red rounded-full flex items-center justify-center text-white font-bold mr-4">
+                        IA
                     </div>
                     <div>
-                        <div class="font-semibold text-gray-900">Chioma Ugwu</div>
-                        <div class="text-sm text-gray-500">Digital Marketing Agency, Port Harcourt</div>
+                        <div class="font-semibold text-gray-900">Ibrahim Abdullahi</div>
+                        <div class="text-sm text-gray-600">Facility Manager, Mega Plaza</div>
                     </div>
                 </div>
             </div>
@@ -739,142 +807,59 @@
     </div>
 </section>
 
-<!-- Stats Section -->
-<section class="section-spacing" style="background: linear-gradient(135deg, var(--color-teal) 0%, var(--color-blue) 100%);">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center text-white">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4">
-                Trusted by Growing Businesses
-            </h2>
-            <p class="text-xl text-gray-200 mb-12 max-w-2xl mx-auto">
-                Join thousands of Nigerian entrepreneurs who have transformed their business operations with Budlite.
-            </p>
+<!-- CTA Section -->
+<section class="section-spacing bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 text-white" id="contact">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+            Ready to Secure Your Business?
+        </h2>
+        <p class="text-xl text-gray-200 mb-8">
+            Contact us today for a free consultation and discover how Budlite can protect what matters most to you.
+        </p>
 
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div class="text-center">
-                    <div class="text-4xl md:text-5xl font-bold text-brand-gold mb-2">5,000+</div>
-                    <div class="text-lg text-gray-200">Active Businesses</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-4xl md:text-5xl font-bold text-brand-gold mb-2">₦2.5B+</div>
-                    <div class="text-lg text-gray-200">Invoices Processed</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-4xl md:text-5xl font-bold text-brand-gold mb-2">99.9%</div>
-                    <div class="text-lg text-gray-200">Uptime Guarantee</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-4xl md:text-5xl font-bold text-brand-gold mb-2">24/7</div>
-                    <div class="text-lg text-gray-200">Customer Support</div>
-                </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div class="bg-white bg-opacity-10 backdrop-blur-sm p-6 rounded-xl">
+                <svg class="w-10 h-10 text-brand-gold mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                </svg>
+                <div class="text-lg font-semibold mb-2">Call Us</div>
+                <div class="text-gray-200">+234 XXX XXX XXXX</div>
+            </div>
+
+            <div class="bg-white bg-opacity-10 backdrop-blur-sm p-6 rounded-xl">
+                <svg class="w-10 h-10 text-brand-gold mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                </svg>
+                <div class="text-lg font-semibold mb-2">Email Us</div>
+                <div class="text-gray-200">info@budlitegroup.com</div>
+            </div>
+
+            <div class="bg-white bg-opacity-10 backdrop-blur-sm p-6 rounded-xl">
+                <svg class="w-10 h-10 text-brand-gold mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+                <div class="text-lg font-semibold mb-2">Visit Us</div>
+                <div class="text-gray-200">Lagos, Nigeria</div>
             </div>
         </div>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="#" class="bg-brand-gold text-gray-900 px-8 py-4 rounded-lg font-semibold hover:bg-opacity-90 transition-all text-center shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                Request a Quote
+            </a>
+            <a href="#" class="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-gray-900 transition-all text-center">
+                Schedule Consultation
+            </a>
+        </div>
+
+        <p class="mt-8 text-gray-300">
+            Available 24/7 for emergencies and consultations
+        </p>
     </div>
 </section>
-
-@include('cta')
 
 <script>
-    let slideIndex = 1;
-    let slideInterval;
-
-    // Initialize carousel
-    document.addEventListener('DOMContentLoaded', function() {
-        showSlides(slideIndex);
-        startAutoSlide();
-    });
-
-    // Next/previous controls
-    function plusSlides(n) {
-        showSlides(slideIndex += n);
-        resetAutoSlide();
-    }
-
-    // Thumbnail image controls
-    function currentSlide(n) {
-        showSlides(slideIndex = n);
-        resetAutoSlide();
-    }
-
-    function showSlides(n) {
-        let slides = document.getElementsByClassName("carousel-slide");
-        let dots = document.getElementsByClassName("carousel-indicator");
-
-        if (n > slides.length) {slideIndex = 1}
-        if (n < 1) {slideIndex = slides.length}
-
-        for (let i = 0; i < slides.length; i++) {
-            slides[i].classList.remove("active");
-        }
-
-        for (let i = 0; i < dots.length; i++) {
-            dots[i].classList.remove("active");
-        }
-
-        if (slides[slideIndex-1]) {
-            slides[slideIndex-1].classList.add("active");
-        }
-        if (dots[slideIndex-1]) {
-            dots[slideIndex-1].classList.add("active");
-        }
-    }
-
-    // Auto-slide functionality
-    function startAutoSlide() {
-        slideInterval = setInterval(function() {
-            slideIndex++;
-            if (slideIndex > 5) slideIndex = 1;
-            showSlides(slideIndex);
-        }, 5000); // Change slide every 5 seconds
-    }
-
-    function resetAutoSlide() {
-        clearInterval(slideInterval);
-        startAutoSlide();
-    }
-
-    // Pause auto-slide on hover
-    document.querySelector('.carousel-container').addEventListener('mouseenter', function() {
-        clearInterval(slideInterval);
-    });
-
-    document.querySelector('.carousel-container').addEventListener('mouseleave', function() {
-        startAutoSlide();
-    });
-
-    // Touch/swipe support for mobile
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    document.querySelector('.carousel-container').addEventListener('touchstart', function(e) {
-        touchStartX = e.changedTouches[0].screenX;
-    });
-
-    document.querySelector('.carousel-container').addEventListener('touchend', function(e) {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-    });
-
-    function handleSwipe() {
-        if (touchEndX < touchStartX - 50) {
-            // Swipe left - next slide
-            plusSlides(1);
-        }
-        if (touchEndX > touchStartX + 50) {
-            // Swipe right - previous slide
-            plusSlides(-1);
-        }
-    }
-
-    // Keyboard navigation
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'ArrowLeft') {
-            plusSlides(-1);
-        } else if (e.key === 'ArrowRight') {
-            plusSlides(1);
-        }
-    });
-
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -889,23 +874,24 @@
         });
     });
 
-    // Add loading animation for CTA buttons
-    document.querySelectorAll('a[href*="register"], a[href*="login"]').forEach(button => {
-        button.addEventListener('click', function(e) {
-            if (!this.classList.contains('loading')) {
-                this.classList.add('loading');
-                const originalText = this.textContent;
-                this.innerHTML = '<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-current inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Loading...';
+    // Add animation on scroll
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    };
 
-                // Reset after 2 seconds if still on page
-                setTimeout(() => {
-                    if (this.classList.contains('loading')) {
-                        this.classList.remove('loading');
-                        this.textContent = originalText;
-                    }
-                }, 2000);
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-fadeInUp');
             }
         });
+    }, observerOptions);
+
+    // Observe all division cards
+    document.querySelectorAll('.division-card').forEach(card => {
+        observer.observe(card);
     });
 </script>
+
 @endsection

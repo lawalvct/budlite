@@ -25,6 +25,25 @@
         </div>
     </div>
 
+    <!-- Error Summary -->
+    @if ($errors->any())
+        <div class="bg-red-50 border-l-4 border-red-500 rounded-lg p-4">
+            <div class="flex items-start">
+                <svg class="w-5 h-5 text-red-500 mt-0.5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                </svg>
+                <div class="flex-1">
+                    <h3 class="text-sm font-medium text-red-800">Please correct the following errors:</h3>
+                    <ul class="mt-2 text-sm text-red-700 list-disc list-inside space-y-1">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
+    @endif
+
     <!-- Form -->
     <form action="{{ route('super-admin.tenants.store') }}" method="POST" class="space-y-8">
         @csrf
@@ -41,7 +60,7 @@
                 <p class="mt-1 text-sm text-gray-600">Basic details about the company</p>
             </div>
 
-            <div class="p-6 space-y-6">
+            <div class="p-6 space-y-6" style="overflow: visible;">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- Company Name -->
                     <div>
@@ -94,7 +113,7 @@
                     </div>
 
                     <!-- Business Type -->
-                    <div>
+                    <div class="relative" style="z-index: 10;">
                         <label for="business_type" class="block text-sm font-medium text-gray-700 mb-2">
                             Business Type <span class="text-red-500">*</span>
                         </label>
@@ -103,12 +122,11 @@
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all @error('business_type') border-red-500 @enderror"
                                 required>
                             <option value="">Select business type</option>
-                            <option value="retail" {{ old('business_type') === 'retail' ? 'selected' : '' }}>Retail & E-commerce</option>
-                            <option value="service" {{ old('business_type') === 'service' ? 'selected' : '' }}>Service Business</option>
-                            <option value="restaurant" {{ old('business_type') === 'restaurant' ? 'selected' : '' }}>Restaurant & Food</option>
-                            <option value="manufacturing" {{ old('business_type') === 'manufacturing' ? 'selected' : '' }}>Manufacturing</option>
-                            <option value="wholesale" {{ old('business_type') === 'wholesale' ? 'selected' : '' }}>Wholesale & Distribution</option>
-                            <option value="other" {{ old('business_type') === 'other' ? 'selected' : '' }}>Other</option>
+                            @foreach($businessTypes as $type)
+                                <option value="{{ $type->id}}" {{ old('business_type') === $type->id? 'selected' : '' }}>
+                                    {{ $type->icon ? $type->icon . ' ' : '' }}{{ $type->name }}
+                                </option>
+                            @endforeach
                         </select>
                         @error('business_type')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -116,94 +134,12 @@
                     </div>
                 </div>
             </div>
+            <br />
+            <br /><br /><br /><br /><br />
+
         </div>
 
-        <!-- Subscription Plan -->
-        <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-            <div class="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-purple-50 to-pink-50">
-                <h3 class="text-lg font-semibold text-gray-900 flex items-center">
-                    <svg class="w-5 h-5 mr-2 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
-                    </svg>
-                    Subscription Plan
-                </h3>
-                <p class="mt-1 text-sm text-gray-600">Choose a plan for this company (30-day trial will be started)</p>
-            </div>
-
-            <div class="p-6 space-y-6">
-                <!-- Plan Selection -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-4">
-                        Select Plan <span class="text-red-500">*</span>
-                    </label>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        @foreach($plans as $plan)
-                        <div class="relative">
-                            <input type="radio"
-                                   id="plan_{{ $plan->id }}"
-                                   name="plan_id"
-                                   value="{{ $plan->id }}"
-                                   class="sr-only peer"
-                                   {{ old('plan_id') == $plan->id ? 'checked' : '' }}
-                                   required>
-                            <label for="plan_{{ $plan->id }}"
-                                   class="block p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-blue-300 peer-checked:border-blue-500 peer-checked:bg-blue-50 transition-all duration-200">
-                                <div class="text-center">
-                                    <h4 class="font-semibold text-gray-900">{{ $plan->name }}</h4>
-                                    <div class="mt-2 space-y-1">
-                                        <p class="text-2xl font-bold text-gray-900">
-                                            ₦{{ number_format($plan->monthly_price / 100) }}
-                                            <span class="text-sm font-normal text-gray-600">/month</span>
-                                        </p>
-                                        <p class="text-sm text-gray-600">
-                                            ₦{{ number_format($plan->yearly_price / 100) }}/year
-                                        </p>
-                                    </div>
-                                    @if($plan->description)
-                                    <p class="mt-2 text-xs text-gray-500">{{ $plan->description }}</p>
-                                    @endif
-                                </div>
-                            </label>
-                        </div>
-                        @endforeach
-                    </div>
-                    @error('plan_id')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Billing Cycle -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-3">
-                        Billing Cycle <span class="text-red-500">*</span>
-                    </label>
-                    <div class="flex space-x-4">
-                        <div class="flex items-center">
-                            <input type="radio"
-                                   id="monthly"
-                                   name="billing_cycle"
-                                   value="monthly"
-                                   class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500"
-                                   {{ old('billing_cycle', 'monthly') === 'monthly' ? 'checked' : '' }}
-                                   required>
-                            <label for="monthly" class="ml-2 text-sm text-gray-700">Monthly</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input type="radio"
-                                   id="yearly"
-                                   name="billing_cycle"
-                                   value="yearly"
-                                   class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500"
-                                   {{ old('billing_cycle') === 'yearly' ? 'checked' : '' }}>
-                            <label for="yearly" class="ml-2 text-sm text-gray-700">Yearly (Save 2 months)</label>
-                        </div>
-                    </div>
-                    @error('billing_cycle')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
-            </div>
-        </div>
+        
 
         <!-- Owner Account -->
         <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
@@ -277,9 +213,12 @@
                         <input type="password"
                                id="owner_password_confirmation"
                                name="owner_password_confirmation"
-                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all @error('owner_password_confirmation') border-red-500 @enderror"
                                placeholder="Confirm the password"
                                required>
+                        @error('owner_password_confirmation')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
             </div>
@@ -299,7 +238,7 @@
     </form>
 
     <!-- Additional Actions -->
-    <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+    {{-- <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
         <div class="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-amber-50 to-orange-50">
             <h3 class="text-lg font-semibold text-gray-900 flex items-center">
                 <svg class="w-5 h-5 mr-2 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -323,13 +262,52 @@
                 Send Invitation Instead
             </a>
         </div>
-    </div>
+    </div> --}}
 
 </div>
+
+<!-- Choices.js for searchable select -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+
+<style>
+/* Custom styling for Choices.js to match Tailwind design */
+.choices__inner {
+    padding: 0.75rem 1rem !important;
+    border-radius: 0.5rem !important;
+    min-height: 48px !important;
+    font-size: 0.875rem !important;
+    border: 1px solid #d1d5db !important;
+}
+.choices__list--dropdown {
+    z-index: 100 !important;
+}
+.choices__list--dropdown .choices__item--selectable {
+    padding: 0.75rem 1rem !important;
+}
+.choices[data-type*="select-one"] .choices__input {
+    padding: 0.5rem !important;
+}
+.choices__list--dropdown .choices__item--selectable.is-highlighted {
+    background-color: #3b82f6 !important;
+}
+</style>
 
 <script>
 // Form validation and enhancement
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize searchable select for business type
+    const businessTypeSelect = document.getElementById('business_type');
+    if (businessTypeSelect) {
+        new Choices(businessTypeSelect, {
+            searchEnabled: true,
+            searchPlaceholderValue: 'Search business type...',
+            itemSelectText: 'Click to select',
+            shouldSort: false,
+            removeItemButton: false,
+        });
+    }
+
     // Auto-fill owner email when company email changes
     const companyEmail = document.getElementById('email');
     const ownerEmail = document.getElementById('owner_email');

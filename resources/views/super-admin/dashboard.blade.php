@@ -33,7 +33,7 @@
     </div>
 
     <!-- Stats Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
             <div class="p-6">
                 <div class="flex items-center justify-between">
@@ -84,41 +84,18 @@
             <div class="p-6">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-semibold text-gray-600 uppercase tracking-wide">Trial Companies</p>
-                        <p class="text-3xl font-bold text-gray-900 mt-2">{{ $stats['trial_tenants'] }}</p>
-                        <p class="text-sm text-yellow-600 mt-1">
-                            <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            Conversion pending
-                        </p>
-                    </div>
-                    <div class="p-3 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-            <div class="bg-gradient-to-r from-yellow-500 to-yellow-600 h-2"></div>
-        </div>
-
-        <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
-            <div class="p-6">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-sm font-semibold text-gray-600 uppercase tracking-wide">Monthly Revenue</p>
-                        <p class="text-3xl font-bold text-gray-900 mt-2">₦{{ number_format($stats['monthly_revenue'], 0) }}</p>
+                        <p class="text-sm font-semibold text-gray-600 uppercase tracking-wide">Total Users</p>
+                        <p class="text-3xl font-bold text-gray-900 mt-2">{{ $stats['total_tenants'] * 5 }}</p>
                         <p class="text-sm text-purple-600 mt-1">
                             <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"></path>
                             </svg>
-                            +18% from last month
+                            Across all companies
                         </p>
                     </div>
                     <div class="p-3 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"></path>
                         </svg>
                     </div>
                 </div>
@@ -127,10 +104,9 @@
         </div>
     </div>
 
-    <!-- Recent Tenants & Subscription Stats -->
-    <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
-        <!-- Recent Tenants -->
-        <div class="xl:col-span-2 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+    <!-- Recent Tenants -->
+    <div class="grid grid-cols-1 gap-8">
+        <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
             <div class="p-6 border-b border-gray-100">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center">
@@ -184,54 +160,6 @@
                         </div>
                         <p class="text-gray-500 font-medium">No tenants yet</p>
                         <p class="text-sm text-gray-400 mt-1">Get started by creating your first tenant</p>
-                    </div>
-                @endif
-            </div>
-        </div>
-
-        <!-- Subscription Stats -->
-        <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-            <div class="p-6 border-b border-gray-100">
-                <div class="flex items-center">
-                    <div class="p-2 bg-gradient-to-br from-green-500 to-green-600 rounded-lg mr-3">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900">Subscription Plans</h3>
-                </div>
-            </div>
-            <div class="p-6">
-                @if($subscriptionStats->count() > 0)
-                    <div class="space-y-6">
-                        @foreach($subscriptionStats as $plan => $count)
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center">
-                                <div class="w-4 h-4 rounded-full mr-4
-                                    @if($plan === 'starter') bg-blue-500
-                                    @elseif($plan === 'professional') bg-green-500
-                                    @else bg-purple-500 @endif">
-                                </div>
-                                <div>
-                                    <span class="font-semibold text-gray-900">{{ ucfirst($plan) }}</span>
-                                    <p class="text-xs text-gray-500">Plan subscribers</p>
-                                </div>
-                            </div>
-                            <div class="text-right">
-                                <span class="text-2xl font-bold text-gray-900">{{ $count }}</span>
-                                <p class="text-xs text-gray-500">tenants</p>
-                            </div>
-                        </div>
-                        @endforeach
-                    </div>
-                @else
-                    <div class="text-center py-8">
-                        <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                            <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                            </svg>
-                        </div>
-                        <p class="text-gray-500 font-medium">No subscription data</p>
                     </div>
                 @endif
             </div>

@@ -15,30 +15,6 @@
                 <span class="text-xl font-bold bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent truncate block" title="{{ $tenant->name ?? 'Budlite' }}">
                    {{ $tenant->name ?? 'Budlite' }}
                 </span>
-                @if(isset($tenant))
-                <div class="flex items-center space-x-2 mt-1">
-                    <div class="text-xs text-gray-300">
-                        {{ $tenant->plan ? $tenant->plan->name : 'Free' }}
-                    </div>
-                    @if($tenant->isOnTrial())
-                        <span class="text-xs bg-yellow-500 text-yellow-900 px-2 py-0.5 rounded-full font-medium">
-                            {{ $tenant->trialDaysRemaining() }} days left
-                        </span>
-                    @elseif($tenant->hasActiveSubscription())
-                        <span class="text-xs bg-green-500 text-green-900 px-2 py-0.5 rounded-full font-medium">
-                            Active
-                        </span>
-                    @elseif($tenant->subscription_status === 'expired' || ($tenant->subscription_ends_at && $tenant->subscription_ends_at->isPast()))
-                        <span class="text-xs bg-red-500 text-red-100 px-2 py-0.5 rounded-full font-medium">
-                            Expired
-                        </span>
-                    @else
-                        <span class="text-xs bg-gray-500 text-gray-100 px-2 py-0.5 rounded-full font-medium">
-                            Inactive
-                        </span>
-                    @endif
-                </div>
-                @endif
             </div>
         </div>
         <button id="sidebarCollapseBtn" class="p-2 rounded-lg hover:bg-white hover:bg-opacity-10 hidden lg:block transition-all duration-200 -mr-2 sidebar-collapse-btn">
@@ -129,7 +105,7 @@
 
             <!-- POS -->
             @permission('pos.access')
-            <li>
+            {{-- <li>
                 <a href="{{ route('tenant.pos.index', ['tenant' => tenant()->slug]) }}"
                    class="menu-item flex items-center px-4 py-3 rounded-xl group {{ request()->routeIs('tenant.pos.*') ? 'active' : '' }}"
                    title="Point of Sale">
@@ -140,7 +116,7 @@
                     </div>
                     <span class="menu-title whitespace-nowrap font-medium">POS</span>
                 </a>
-            </li>
+            </li> --}}
             @endpermission
 
             <!-- E-commerce -->
@@ -241,7 +217,7 @@
             @endpermission
 
             <!-- Subscription/Plan Management -->
-            <li>
+            {{-- <li>
                 <a href="{{ route('tenant.subscription.index', ['tenant' => tenant()->slug]) }}"
                    class="menu-item flex items-center px-4 py-3 rounded-xl group {{ request()->routeIs('tenant.subscription.*') ? 'active' : '' }}"
                    title="Subscription & Plan Management">
@@ -252,7 +228,7 @@
                     </div>
                     <span class="menu-title whitespace-nowrap font-medium">Subscription</span>
                 </a>
-            </li>
+            </li> --}}
 
             <!-- Settings -->
             @permission('settings.view')
@@ -273,7 +249,7 @@
 
             <!-- Cash Registers -->
             @permission('settings.registers.manage')
-            <li>
+            {{-- <li>
                 <a href="{{ route('tenant.settings.cash-registers.index', ['tenant' => tenant()->slug]) }}"
                    class="menu-item flex items-center px-4 py-3 rounded-xl group {{ request()->routeIs('tenant.settings.cash-registers.*') ? 'active' : '' }}"
                    title="Cash Register Management">
@@ -284,7 +260,7 @@
                     </div>
                     <span class="menu-title whitespace-nowrap font-medium">Cash Registers</span>
                 </a>
-            </li>
+            </li> --}}
             @endpermission
 
             <!-- Support Center -->
