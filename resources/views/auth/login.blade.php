@@ -142,18 +142,18 @@
             </form>
 
             <!-- Register Link -->
-            <div class="text-center mt-8 pt-6 border-t border-gray-200">
+            {{-- <div class="text-center mt-8 pt-6 border-t border-gray-200">
                 <p class="text-gray-600">
                     Don't have an account?
                     <a href="{{ route('register') }}" class="font-semibold hover:underline" style="color: var(--color-blue);">
                         Start your free trial
                     </a>
                 </p>
-            </div>
+            </div> --}}
         </div>
 
         <!-- Trust Indicators -->
-        <div class="text-center">
+        {{-- <div class="text-center">
             <div class="flex items-center justify-center space-x-6 text-white text-sm opacity-75">
                 <div class="flex items-center">
                     <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -168,7 +168,7 @@
                     Trusted by 5,000+ businesses
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 </div>
 

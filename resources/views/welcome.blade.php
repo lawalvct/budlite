@@ -168,7 +168,10 @@
             <div class="w-24 h-1 bg-brand-gold mx-auto mb-8"></div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+            <div>
+                <img src="{{ asset('images/budlite-goup-picture.jpg') }}" alt="Budlite Group Team" class="w-full rounded-xl shadow-lg">
+            </div>
             <div>
                 <p class="text-lg text-gray-700 mb-6 leading-relaxed">
                     Budlite Security & Technology Ltd is a trusted provider of advanced security and technology solutions,
@@ -196,9 +199,10 @@
                     </p>
                 </div>
             </div>
+        </div>
 
-            <div class="space-y-6">
-                <div class="bg-gray-50 p-6 rounded-xl border-l-4 border-brand-gold">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="bg-gray-50 p-6 rounded-xl border-l-4 border-brand-gold">
                     <h3 class="text-xl font-bold text-gray-900 mb-3">Our Vision</h3>
                     <p class="text-gray-700">
                         To be the leading provider of integrated security and technology solutions across Nigeria,
@@ -259,14 +263,17 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <!-- Budlite Security -->
             <div class="division-card bg-white rounded-2xl shadow-lg overflow-hidden">
-                <div class="bg-gradient-to-br from-blue-600 to-blue-800 p-8 text-white">
-                    <div class="feature-icon bg-white bg-opacity-20">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                        </svg>
+                <div class="relative bg-gradient-to-br from-blue-600 to-blue-800 p-8 text-white" style="background-image: url('{{ asset('images/security.png') }}'); background-size: cover; background-position: center;">
+                    <div class="absolute inset-0 bg-gradient-to-br from-blue-600/30 to-blue-800/30"></div>
+                    <div class="relative z-10">
+                        <div class="feature-icon bg-white bg-opacity-20">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">Budlite Security</h3>
+                        <p class="text-blue-100">Professional security personnel and mobile patrol services</p>
                     </div>
-                    <h3 class="text-2xl font-bold mb-3">Budlite Security</h3>
-                    <p class="text-blue-100">Professional security personnel and mobile patrol services</p>
                 </div>
                 <div class="p-8">
                     <ul class="space-y-3 mb-6">
@@ -303,14 +310,17 @@
 
             <!-- Budlite CCTV -->
             <div class="division-card bg-white rounded-2xl shadow-lg overflow-hidden">
-                <div class="bg-gradient-to-br from-gray-700 to-gray-900 p-8 text-white">
-                    <div class="feature-icon bg-white bg-opacity-20">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-                        </svg>
+                <div class="relative bg-gradient-to-br from-gray-700 to-gray-900 p-8 text-white" style="background-image: url('{{ asset('images/security.png') }}'); background-size: cover; background-position: center;">
+                    <div class="absolute inset-0 bg-gradient-to-br from-gray-700/30 to-gray-900/30"></div>
+                    <div class="relative z-10">
+                        <div class="feature-icon bg-white bg-opacity-20">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">Budlite CCTV Surveillance</h3>
+                        <p class="text-gray-200">Advanced surveillance systems for total monitoring coverage</p>
                     </div>
-                    <h3 class="text-2xl font-bold mb-3">Budlite CCTV Surveillance</h3>
-                    <p class="text-gray-200">Advanced surveillance systems for total monitoring coverage</p>
                 </div>
                 <div class="p-8">
                     <ul class="space-y-3 mb-6">
@@ -347,14 +357,17 @@
 
             <!-- Security Equipment Sales -->
             <div class="division-card bg-white rounded-2xl shadow-lg overflow-hidden">
-                <div class="bg-gradient-to-br from-red-600 to-red-800 p-8 text-white">
-                    <div class="feature-icon bg-white bg-opacity-20">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-                        </svg>
+                <div class="relative bg-gradient-to-br from-red-600 to-red-800 p-8 text-white" style="background-image: url('{{ asset('images/security.png') }}'); background-size: cover; background-position: center;">
+                    <div class="absolute inset-0 bg-gradient-to-br from-red-600/30 to-red-800/30"></div>
+                    <div class="relative z-10">
+                        <div class="feature-icon bg-white bg-opacity-20">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">Security Equipment Sales</h3>
+                        <p class="text-red-100">High-quality security equipment from trusted manufacturers</p>
                     </div>
-                    <h3 class="text-2xl font-bold mb-3">Security Equipment Sales</h3>
-                    <p class="text-red-100">High-quality security equipment from trusted manufacturers</p>
                 </div>
                 <div class="p-8">
                     <ul class="space-y-3 mb-6">
@@ -391,14 +404,17 @@
 
             <!-- Budlite Agriculture -->
             <div class="division-card bg-white rounded-2xl shadow-lg overflow-hidden">
-                <div class="bg-gradient-to-br from-green-600 to-green-800 p-8 text-white">
-                    <div class="feature-icon bg-white bg-opacity-20">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
+                <div class="relative bg-gradient-to-br from-green-600 to-green-800 p-8 text-white" style="background-image: url('{{ asset('images/Agriculture.png') }}'); background-size: cover; background-position: center;">
+                    <div class="absolute inset-0 bg-gradient-to-br from-green-600/30 to-green-800/30"></div>
+                    <div class="relative z-10">
+                        <div class="feature-icon bg-white bg-opacity-20">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">Budlite Agriculture</h3>
+                        <p class="text-green-100">Sustainable farming and agricultural solutions</p>
                     </div>
-                    <h3 class="text-2xl font-bold mb-3">Budlite Agriculture</h3>
-                    <p class="text-green-100">Sustainable farming and agricultural solutions</p>
                 </div>
                 <div class="p-8">
                     <ul class="space-y-3 mb-6">
@@ -435,14 +451,17 @@
 
             <!-- Budlite Solar -->
             <div class="division-card bg-white rounded-2xl shadow-lg overflow-hidden">
-                <div class="bg-gradient-to-br from-yellow-500 to-orange-600 p-8 text-white">
-                    <div class="feature-icon bg-white bg-opacity-20">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                        </svg>
+                <div class="relative bg-gradient-to-br from-yellow-500 to-orange-600 p-8 text-white" style="background-image: url('{{ asset('images/Solar.png') }}'); background-size: cover; background-position: center;">
+                    <div class="absolute inset-0 bg-gradient-to-br from-yellow-500/30 to-orange-600/30"></div>
+                    <div class="relative z-10">
+                        <div class="feature-icon bg-white bg-opacity-20">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">Budlite Solar</h3>
+                        <p class="text-orange-100">Clean, renewable energy solutions for homes and businesses</p>
                     </div>
-                    <h3 class="text-2xl font-bold mb-3">Budlite Solar</h3>
-                    <p class="text-orange-100">Clean, renewable energy solutions for homes and businesses</p>
                 </div>
                 <div class="p-8">
                     <ul class="space-y-3 mb-6">
@@ -479,14 +498,17 @@
 
             <!-- Additional Services -->
             <div class="division-card bg-white rounded-2xl shadow-lg overflow-hidden">
-                <div class="bg-gradient-to-br from-purple-600 to-indigo-800 p-8 text-white">
-                    <div class="feature-icon bg-white bg-opacity-20">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                        </svg>
+                <div class="relative bg-gradient-to-br from-purple-600 to-indigo-800 p-8 text-white" style="background-image: url('{{ asset('images/Integrated-Solutions.png') }}'); background-size: cover; background-position: center;">
+                    <div class="absolute inset-0 bg-gradient-to-br from-purple-600/30 to-indigo-800/30"></div>
+                    <div class="relative z-10">
+                        <div class="feature-icon bg-white bg-opacity-20">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">Integrated Solutions</h3>
+                        <p class="text-purple-100">Complete security & technology integration for your facility</p>
                     </div>
-                    <h3 class="text-2xl font-bold mb-3">Integrated Solutions</h3>
-                    <p class="text-purple-100">Complete security & technology integration for your facility</p>
                 </div>
                 <div class="p-8">
                     <ul class="space-y-3 mb-6">
@@ -823,7 +845,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
                 </svg>
                 <div class="text-lg font-semibold mb-2">Call Us</div>
-                <div class="text-gray-200">+234 XXX XXX XXXX</div>
+                <div class="text-gray-200">+234 814 429 7292</div>
             </div>
 
             <div class="bg-white bg-opacity-10 backdrop-blur-sm p-6 rounded-xl">

@@ -122,17 +122,17 @@
         </div>
 
         <!-- Help Text -->
-        <div class="text-center">
+        {{-- <div class="text-center">
             <p class="text-white text-sm opacity-75">
                 Need help? Contact our
                 <a href="mailto:support@budlite.ngm" class="font-semibold hover:underline" style="color: var(--color-gold);">
                     support team
                 </a>
             </p>
-        </div>
+        </div> --}}
 
         <!-- Trust Indicators -->
-        <div class="text-center">
+        {{-- <div class="text-center">
             <div class="flex items-center justify-center space-x-6 text-white text-sm opacity-75">
                 <div class="flex items-center">
                     <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -147,7 +147,7 @@
                     Privacy Protected
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 </div>
 
