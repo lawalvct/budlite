@@ -302,8 +302,8 @@
                             <span class="text-gray-700">Risk assessment & consulting</span>
                         </li>
                     </ul>
-                    <a href="#contact" class="block w-full text-center bg-brand-blue text-white py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-all">
-                        Learn More
+                    <a href="https://budlitesecurity.ng/" target="_blank" class="block w-full text-center bg-brand-blue text-white py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-all">
+                       Visit Website
                     </a>
                 </div>
             </div>
