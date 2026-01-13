@@ -193,6 +193,19 @@ class ProductController extends Controller
             $data['tenant_id'] = $tenant->id;
             $data['created_by'] = auth()->id();
 
+            // Auto-generate slug if not provided
+            if (empty($data['slug'])) {
+                $data['slug'] = \Illuminate\Support\Str::slug($data['name']);
+
+                // Ensure uniqueness
+                $originalSlug = $data['slug'];
+                $count = 1;
+                while (Product::where('tenant_id', $tenant->id)->where('slug', $data['slug'])->exists()) {
+                    $data['slug'] = $originalSlug . '-' . $count;
+                    $count++;
+                }
+            }
+
             // Handle primary image upload
             if ($request->hasFile('image')) {
                 $data['image_path'] = $request->file('image')->store('products', 'public');
@@ -470,6 +483,22 @@ public function update(Request $request, Tenant $tenant, Product $product)
         DB::beginTransaction();
 
         $data = $request->except(['image', 'gallery_images']);
+
+        // Auto-generate slug if not provided and currently empty
+        if (empty($data['slug']) && empty($product->slug)) {
+            $data['slug'] = \Illuminate\Support\Str::slug($data['name'] ?? $product->name);
+
+            // Ensure uniqueness
+            $originalSlug = $data['slug'];
+            $count = 1;
+            while (Product::where('tenant_id', $tenant->id)
+                    ->where('slug', $data['slug'])
+                    ->where('id', '!=', $product->id)
+                    ->exists()) {
+                $data['slug'] = $originalSlug . '-' . $count;
+                $count++;
+            }
+        }
 
         // Handle boolean fields
         $data['maintain_stock'] = $request->has('maintain_stock');

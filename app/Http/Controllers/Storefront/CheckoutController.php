@@ -424,8 +424,11 @@ class CheckoutController extends Controller
     private function getCart($tenant)
     {
         if (Auth::guard('customer')->check()) {
+            $authUser = Auth::guard('customer')->user();
+            $customerId = $authUser->customer_id;
+
             return Cart::where('tenant_id', $tenant->id)
-                ->where('customer_id', Auth::guard('customer')->id())
+                ->where('customer_id', $customerId)
                 ->with('items.product.primaryImage')
                 ->first();
         } else {

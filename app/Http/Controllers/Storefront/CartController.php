@@ -159,11 +159,22 @@ class CartController extends Controller
     private function getOrCreateCart($tenant)
     {
         if (Auth::guard('customer')->check()) {
-            // Authenticated customer
+            // Authenticated customer - get the actual customer_id from the relationship
+            $authUser = Auth::guard('customer')->user();
+            $customerId = $authUser->customer_id;
+
+            // Validate customer exists (in case of deleted customer)
+            if (!$customerId || !\App\Models\Customer::find($customerId)) {
+                Auth::guard('customer')->logout();
+                session()->flush();
+                return redirect()->route('storefront.login', ['tenant' => $tenant->slug])
+                    ->with('error', 'Your account is no longer active. Please contact support.');
+            }
+
             $cart = Cart::firstOrCreate(
                 [
                     'tenant_id' => $tenant->id,
-                    'customer_id' => Auth::guard('customer')->id(),
+                    'customer_id' => $customerId,
                 ],
                 [
                     'expires_at' => now()->addDays(30),

@@ -130,12 +130,10 @@ class StorefrontController extends Controller
     /**
      * Display single product detail page
      */
-    public function show($tenant, $slug)
+    public function show(Request $request, $tenant, $slug)
     {
-        // Resolve tenant if it's a string (slug)
-        if (is_string($tenant)) {
-            $tenant = Tenant::where('slug', $tenant)->firstOrFail();
-        }
+        // Get tenant from request (set by middleware)
+        $tenant = $request->current_tenant;
 
         $storeSettings = $tenant->ecommerceSettings;
 
@@ -145,10 +143,13 @@ class StorefrontController extends Controller
 
         $product = Product::where('tenant_id', $tenant->id)
             ->where('slug', $slug)
-            ->where('is_visible_online', true)
-            ->where('is_active', true)
             ->with('images', 'category', 'unit')
             ->firstOrFail();
+
+        // Check if product is visible and active
+        if (!$product->is_visible_online || !$product->is_active) {
+            abort(404, 'Product not available');
+        }
 
         // Increment view count
         $product->increment('view_count');
