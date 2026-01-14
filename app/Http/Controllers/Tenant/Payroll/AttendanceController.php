@@ -25,7 +25,7 @@ class AttendanceController extends Controller
         $selectedDate = Carbon::parse($date);
 
         $query = AttendanceRecord::where('tenant_id', $tenant->id)
-            ->with(['employee.department', 'shift', 'approver'])
+            ->with(['employee.department', 'employee.currentShiftAssignment.shift', 'shift', 'approver'])
             ->whereDate('attendance_date', $selectedDate);
 
         // Filters
@@ -158,8 +158,8 @@ class AttendanceController extends Controller
         $attendance->employee_id = $employee->id;
         $attendance->attendance_date = $today;
         $attendance->shift_id = $shift?->id;
-        $attendance->scheduled_in = $shift ? Carbon::parse($today . ' ' . $shift->start_time) : null;
-        $attendance->scheduled_out = $shift ? Carbon::parse($today . ' ' . $shift->end_time) : null;
+        $attendance->scheduled_in = $shift ? Carbon::parse($today . ' ' . $shift->start_time->format('H:i:s')) : null;
+        $attendance->scheduled_out = $shift ? Carbon::parse($today . ' ' . $shift->end_time->format('H:i:s')) : null;
 
         $attendance->clockIn(
             $request->header('X-Forwarded-For') ?? $request->ip(),
